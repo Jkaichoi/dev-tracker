@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 const Navbar = ({ user, handleLogout }) => {
 
   const rightNavItems = () => {
-    // links will display when the user is logged in
+    // links will display when the use is logged in
     if (user) {
       return (
         <>
+          <Link to='/dash'>
+            <li>
+              Dashboard
+            </li>
+          </Link>
           <li onClick={ () => handleLogout() }>
             Logout
           </li>
@@ -24,7 +29,7 @@ const Navbar = ({ user, handleLogout }) => {
           </Link>
           <Link to='/register'>
             <li>
-              register
+              Register
             </li>
           </Link>
         </>
