@@ -5,15 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-@versionArr = ['Founder', 'Gold', 'Normal', 'GOTY', 'Collectors']
+require "faker"
+status = ['applied', 'wishlist', 'interviewed', 'offered', 'rejected']
 
-5.times do
-  Job.create(
-    company: Faker::Game.platform,
-    startApply: Faker::Date.between(from: '2021-01-01', to: '2022-01-04'),
-    version: @versionArr.sample,
-    user_id: 1
+10.times do 
+ Job.create(
+  company: Faker::Company.name,
+  title: Faker::Company.industry,
+  salary: Faker::Number.decimal(l_digits: 2),
+  location: Faker::Address.city,
+  startApply: Faker::Date.in_date_period,
+  description: Faker::Quote.yoda,
+  status: status.sample,
+  user_id: 1,
   )
 end
 
 puts Job.count
+

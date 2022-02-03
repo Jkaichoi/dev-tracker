@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { initMiddleware } from 'devise-axios';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './providers/AuthProvider';
+import JobProvider from './providers/JobProvider';
 
 initMiddleware();
 
@@ -14,7 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <JobProvider>
+          <App />
+        </JobProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
