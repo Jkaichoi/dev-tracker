@@ -8,7 +8,7 @@
 require "faker"
 status = ['applied', 'wishlist', 'interviewed', 'offered', 'rejected']
 
-10.times do 
+15.times do 
  Job.create(
   company: Faker::Company.name,
   title: Faker::Company.industry,

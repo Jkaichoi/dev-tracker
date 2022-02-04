@@ -32,7 +32,7 @@ import JobForm from './JobForm';
          :
          <>
            <h1>
-          Id: {params.jobId} 
+          {/* Id: {params.jobId}  */}
              {company}</h1>
              <h3>Title: {title}</h3>
              <h5>Applied:
@@ -44,7 +44,7 @@ import JobForm from './JobForm';
              <p>Description:{description}</p>
              <p>Status:{status}</p>
              <p>Salary:${salary}/Hour</p>
-             <h5>Applied:
+             <h5>Date Ended:
                <Moment format='MM/DD/YYYY'>
                  {endApply}
                </Moment> 

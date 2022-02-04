@@ -47,7 +47,7 @@ const MainNavbar = ({ user, handleLogout }) => {
         <Container>
           <Navbar.Brand>
             <Link to="/">
-              Dev Tracker
+              Dev-Tracker
             </Link>
           </Navbar.Brand>
           <Nav className="me-auto">

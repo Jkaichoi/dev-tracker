@@ -8,7 +8,6 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import FetchUser from './components/auth/FetchUser';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-// import Profile from './components/auth/Profile';
 import Jobs from './components/jobs/Jobs';
 import JobShow from './components/jobs/JobShow';
 

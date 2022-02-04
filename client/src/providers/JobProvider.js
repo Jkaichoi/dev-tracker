@@ -1,38 +1,3 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-
-// export const JobContext = React.createContext();
-// export const JobConsumer = JobContext.Consumer;
-
-// const JobProvider = ({ children }) => {
-//   const [jobs, setJobs] = useState([])
-
-//   const getAllJobs = () => {
-//     axios.get('/api/jobs')
-//       .then( res => setJobs(res.data) )
-//       .catch( err => console.log(err) )
-//   }
-
-//   const addJob = (job) => {
-//     axios.post('/api/jobs', { job })
-//       .then( res => setJobs([...jobs, res.data]))
-//       .catch( err => console.log(err) )
-//   }
- 
-//   return (
-//     <JobContext.Provider value={{
-//       jobs,
-//       getAllJobs: getAllJobs,
-//       addJob: addJob, 
-//     }}>
-//       { children }
-//     </JobContext.Provider>
-//   )
-// }
-
-// export default JobProvider;
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -42,20 +7,35 @@ export const JobConsumer = JobContext.Consumer;
 
 const JobProvider = ({ children }) => {
   const [jobs, setJobs] = useState([])
+  const [wishlistJobs, setWishlistJobs] = useState([])
+  const [appliedJobs, setAppliedJobs] = useState([])
+  const [interviewJobs, setInterviewJobs] = useState([])
+  const [offerJobs, setOfferJobs] = useState([])
+  const [rejectedJobs, setRejectedJobs] = useState([])
 
   const navigate = useNavigate()
 
   const getAllJobs = () => {
     axios.get('/api/jobs')
-      .then( res => setJobs(res.data) )
+      .then( res =>{ 
+          setJobs(res.data)
+          setWishlistJobs(res.data.filter(j => j.status === 'wishlist'))
+          setAppliedJobs(res.data.filter(j => j.status === 'applied'))
+          setInterviewJobs(res.data.filter(j => j.status === 'interview'))
+          setOfferJobs(res.data.filter(j => j.status === 'offer'))
+          setRejectedJobs(res.data.filter(j => j.status === 'rejected'))
+      })
       .catch( err => console.log(err) )
   }
 
   const addJob = (job) => {
     axios.post('/api/jobs', { job })
-      .then( res => setJobs([...jobs, res.data]))
+      .then( res => {
+          setJobs([...jobs, res.data])
+          window.location.href = '/jobs'
+      } )
       .catch( err => console.log(err) )
-  }
+    }
 
   const updateJob = (id, job) => {
     axios.put(`/api/jobs/${id}`, { job })
@@ -74,8 +54,7 @@ const JobProvider = ({ children }) => {
 
   const deleteJob = (id) => {
     axios.delete(`/api/jobs/${id}`)
-      .then( res => {
-        setJobs(jobs.filter( p => p.id !== id))
+      .then( res => {setJobs(jobs.filter( p => p.id !== id))
         alert(res.data.message)
         navigate('/jobs')
 
@@ -86,6 +65,11 @@ const JobProvider = ({ children }) => {
   return (
     <JobContext.Provider value={{
       jobs,
+      wishlistJobs, 
+      appliedJobs,
+      interviewJobs,
+      offerJobs,
+      rejectedJobs,
       getAllJobs: getAllJobs,
       addJob: addJob,
       updateJob: updateJob,

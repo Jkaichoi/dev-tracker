@@ -1,6 +1,6 @@
 const Home = ({}) => (
     <>
-      <h1>Home Page</h1>
+      <h1>Welcome to your Dev Tracker</h1>
     </>
   )
   

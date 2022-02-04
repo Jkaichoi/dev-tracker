@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { JobConsumer } from '../../providers/JobProvider';
 import JobList from './JobList';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col, Modal } from 'react-bootstrap';
 import JobForm from './JobForm';
 
-const Jobs = ({ jobs, getAllJobs, addJob }) => {
+const Jobs = ({ jobs, getAllJobs, addJob,wishlistJobs, appliedJobs, interviewJobs, offerJobs, rejectedJobs }) => {
   const [adding, setAdding] = useState(false)
 
   useEffect( () => {
@@ -14,15 +14,43 @@ const Jobs = ({ jobs, getAllJobs, addJob }) => {
   return (
     <>
       <h1>All Jobs</h1>
-      { adding ?
-          <>
-            <JobForm addJob={addJob} />
-            <Button variant="info" onClick={() => setAdding(false)}>Cancel</Button>
-          </>
-        :
-        <Button variant="info" onClick={() => setAdding(true)}>+</Button>
-      }
-      <JobList jobs={jobs} />
+     
+      <Button variant="info" onClick={() => setAdding(true)}>Add Job</Button>
+      <Modal show={adding} onHide={() => setAdding(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Job</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <JobForm addJob={addJob} /> 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setAdding(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <br/>
+      <br/>
+      <br/>
+      <Container>
+        <Row>
+          <Col>
+            <JobList title='Wishlist' jobs={wishlistJobs} />
+          </Col>
+          <Col>
+            <JobList title='Applied' jobs={appliedJobs} />
+          </Col>
+          <Col>
+            <JobList title='Interview' jobs={interviewJobs} />
+          </Col>
+          <Col>
+           <JobList title='Offer' jobs={offerJobs} />
+          </Col>
+          <Col>
+            <JobList title='Rejected' jobs={rejectedJobs} />
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }
