@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const JobForm = ({ addJob }) => {
+const JobForm = ({ addJob, id, company, title, location, startApply, description, status, salary, endApply,updateJob }) => {
   const [job, setJob] = useState({ company: '', title: '',    location: '', startApply: '', description: '', status: '', salary: '', endApply: '' })
+
+  useEffect( () => {
+    if (id) {
+      setJob({ company, title, location, startApply, description, salary, endApply })
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    addJob(job)
+    if (id) {
+        updateJob(id,job)
+      } else {
+        addJob(job)
+      }
     setJob(({ company: '', title: '', location: '', startApply: '', description: '', status: '', salary: '', endApply: '' }))
   }
 
